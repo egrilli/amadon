@@ -1,0 +1,37 @@
+{% extends "store/base.html" %}
+{% block titulo %} Amadon {% endblock %}
+{% block contenido %}
+<div class="container">
+    <h1 class="text-center py-4">Amadon Store!</h1>
+    <div class="row">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in all_products %}
+                <tr>
+                    <form action="/checkout/" method="post">
+                        {% csrf_token %}
+                        <td>{{product.description}}</td>
+                        <td><input type="hidden" name="price" value="{{product.price}}">{{product.price}}</td>
+                        <td><select name="quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select></td>
+                        <td><button><input type="submit" value="Buy!"></button></td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
